@@ -1,25 +1,33 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
-	v8 "rogchap.com/v8go"
+	"github.com/robertkrimen/otto"
 )
 
 func main() {
-	iso := v8.NewIsolate()
+	vm := otto.New()
 
-	printfn := v8.NewFunctionTemplate(iso, func(info *v8.FunctionCallbackInfo) *v8.Value {
-		fmt.Printf("%v", info.Args())
-		return nil
+	vm.Set("sayHello", func(call otto.FunctionCall) otto.Value {
+		log.Printf("Hello, %s.\n", call.Argument(0).String())
+		return otto.Value{}
 	})
 
-	global := v8.NewObjectTemplate(iso)
-	global.Set("print", printfn)
+	vm.Set("twoPlus", func(call otto.FunctionCall) otto.Value {
+		right, _ := call.Argument(0).ToInteger()
+		result, _ := vm.ToValue(2 + right)
+		return result
+	})
 
-	ctx := v8.NewContext(iso, global)
-	ctx.RunScript("print('foo')", "print.js")
+	testExample, _ := vm.Run(`
+    	sayHello("Xyzzy");      // Hello, Xyzzy.
+		sayHello();             // Hello, undefined
+
+		testExample = twoPlus(2.0); // 4
+	`)
+
+	log.Println(testExample)
 }
 
 func checkNilErr(err any) {

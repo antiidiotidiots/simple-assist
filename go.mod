@@ -2,4 +2,6 @@ module github.com/antiidiotidiots/simple-assist
 
 go 1.18
 
-require rogchap.com/v8go v0.7.0
+require github.com/robertkrimen/otto v0.0.0-20211024170158-b87d35c0b86f
+
+require gopkg.in/sourcemap.v1 v1.0.5 // indirect
