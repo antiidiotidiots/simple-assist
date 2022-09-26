@@ -12,9 +12,9 @@ var dateValues = [
 message = "It is " + dateValues[3] + ":" + dateValues[4] + " ";
 
 if(dateValues[6]) {
-    message += "PM"
+    message += "PM";
 } else {
-    message += "AM"
+    message += "AM";
 }
 
-message += "."
+message += ".";

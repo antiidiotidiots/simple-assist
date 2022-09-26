@@ -131,7 +131,7 @@ func findKeywordsAndRun(extractedKeywords []string) {
 
 						runScript(scriptFile, extractedKeywords)
 
-						break
+						return
 					}
 				}
 			}
@@ -165,11 +165,22 @@ func runScript(scriptFile string, extractedKeywords []string) {
 		return otto.Value{}
 	})
 
-	vm.Set("getKeywords", func(call otto.FunctionCall) otto.Value {
-		// Return the extractedKeywords
-		value, _ := otto.ToValue(extractedKeywords)
-		return value
-	})
+	keywordsJavascriptString := "(["
+
+	for _, extractedKeyword := range extractedKeywords {
+		keywordsJavascriptString += "'"
+		keywordsJavascriptString += extractedKeyword
+		keywordsJavascriptString += "',"
+	}
+
+	keywordsJavascriptString += "])"
+
+	// Get the extractedKeywords
+	value, err := vm.Object(keywordsJavascriptString)
+
+	checkNilErr(err)
+
+	vm.Set("keywords", value)
 
 	// fmt.Println(string(scriptFileContents))
 
