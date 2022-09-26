@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -28,6 +29,7 @@ var (
 	currentDirectory, _   = os.Getwd()
 	intergrationDirectory = filepath.Join(currentDirectory, "integrations")
 )
+var commandFlag = flag.String("command", "", "Command to run")
 
 func init() {
 	// LstdFlags is Ldate | Ltime
@@ -38,15 +40,21 @@ func init() {
 }
 
 func main() {
-
+	flag.Parse()
 	// Get input from the user ( What are they telling the assistent? )
-	fmt.Print("Ask me anything: ")
-	command := singleLineInput()
+	var command string
+
+	if *commandFlag == "" {
+		fmt.Print("Ask me anything: ")
+		command = singleLineInput()
+	} else {
+		command = *commandFlag
+	}
 
 	// Extract keywords
 	extractedKeywords := extractKeywords(command)
 
-	fmt.Println(extractedKeywords)
+	// fmt.Println(extractedKeywords)
 
 	findKeywordsAndRun(extractedKeywords)
 }
@@ -159,7 +167,8 @@ func runScript(scriptFile string, extractedKeywords []string) {
 
 	// fmt.Println(string(scriptFileContents))
 
-	testExample, _ := vm.Run(string(scriptFileContents))
+	message, err := vm.Run(string(scriptFileContents))
+	checkNilErr(err)
 
-	fmt.Println(testExample)
+	fmt.Println(message)
 }
