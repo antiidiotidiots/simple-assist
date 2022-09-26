@@ -6,10 +6,12 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/robertkrimen/otto"
 )
@@ -40,6 +42,8 @@ func init() {
 }
 
 func main() {
+	rand.Seed(time.Now().Unix())
+
 	flag.Parse()
 	// Get input from the user ( What are they telling the assistent? )
 	var command string
@@ -133,6 +137,8 @@ func findKeywordsAndRun(extractedKeywords []string) {
 			}
 		}
 	}
+
+	unknownCommand()
 }
 
 func runScript(scriptFile string, extractedKeywords []string) {
@@ -171,4 +177,13 @@ func runScript(scriptFile string, extractedKeywords []string) {
 	checkNilErr(err)
 
 	fmt.Println(message)
+}
+
+func unknownCommand() {
+	unknownCommandMessages := []string{
+		"Sorry, I don't know how to answer that.",
+		"I'm not sure.",
+	}
+
+	fmt.Println(unknownCommandMessages[rand.Intn(len(unknownCommandMessages))])
 }
