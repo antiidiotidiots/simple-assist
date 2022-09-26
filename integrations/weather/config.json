@@ -1,0 +1,4 @@
+{
+    "keywords": ["weather", "temperature", "rain", "storm", "forecast"],
+    "script": "weather.js"
+}

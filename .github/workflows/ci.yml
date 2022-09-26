@@ -1,8 +1,8 @@
-name: Continuous Intergration
+name: Continuous Integration
 
 on:
-  push:
-  # workflow_dispatch:
+  # push:
+  workflow_dispatch:
 
 jobs:
 
