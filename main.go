@@ -99,10 +99,6 @@ func singleLineInput() string {
 	return input
 }
 
-func getFolderNames() {
-
-}
-
 func loadConfiguration(path string) IntegrationConfiguration {
 	var configuration IntegrationConfiguration
 	configFile, err := os.OpenFile(path, os.O_RDONLY, 0644)
@@ -148,15 +144,15 @@ func runScript(scriptFile string, extractedKeywords []string) {
 	vm := otto.New()
 
 	vm.Set("console.log", func(call otto.FunctionCall) otto.Value {
-		InfoLogger.Println("%s", call.Argument(0).String())
+		InfoLogger.Printf("%s\n", call.Argument(0).String())
 		return otto.Value{}
 	})
 	vm.Set("console.error", func(call otto.FunctionCall) otto.Value {
-		ErrorLogger.Println("%s", call.Argument(0).String())
+		ErrorLogger.Printf("%s\n", call.Argument(0).String())
 		return otto.Value{}
 	})
 	vm.Set("console.warn", func(call otto.FunctionCall) otto.Value {
-		WarningLogger.Println("%s", call.Argument(0).String())
+		WarningLogger.Printf("%s\n", call.Argument(0).String())
 		return otto.Value{}
 	})
 
