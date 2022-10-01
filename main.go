@@ -190,6 +190,7 @@ func unknownCommand() {
 	unknownCommandMessages := []string{
 		"Sorry, I don't know how to answer that.",
 		"I'm not sure.",
+		"I'm sorry, I can't do that yet.",
 	}
 
 	fmt.Println(unknownCommandMessages[rand.Intn(len(unknownCommandMessages))])

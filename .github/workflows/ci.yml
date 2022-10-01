@@ -57,3 +57,4 @@ jobs:
       with:
         name: binaries
         path: /home/runner/work/simple-assist/builds/*
+        retention-days: 2

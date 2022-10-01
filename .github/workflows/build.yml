@@ -30,3 +30,4 @@ jobs:
           name: binaries
           # path: 'simple-assist_compiled_${{ matrix.os }}'
           path: 'simple-assist_compiled_*'
+          retention-days: 2
