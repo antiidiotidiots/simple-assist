@@ -18,3 +18,5 @@ if(dateValues[6]) {
 }
 
 message += ".";
+
+assist.respond(message);
