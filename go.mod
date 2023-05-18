@@ -6,7 +6,7 @@ require (
 	github.com/alexflint/go-arg v1.4.3
 	github.com/joho/godotenv v1.5.1
 	github.com/robertkrimen/otto v0.0.0-20211024170158-b87d35c0b86f
-	github.com/sirupsen/logrus v1.9.0
+	github.com/sirupsen/logrus v1.9.2
 )
 
 require (
